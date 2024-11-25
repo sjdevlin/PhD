@@ -1,0 +1,81 @@
+Sensor
+-
+SensorID PK int
+Make varchar
+Model varchar
+PixelHeight int
+PixelWidth int
+PhysicalHeightmm float
+PhysicalWidthmm float
+
+
+Image
+-
+ImageID PK int
+ExperimentRunID int FK - ExperimentRun.ExperimentRunID
+CameraSettingsID int FK - CameraSettings.CameraSettingsID
+MicroscopeSettingsID int FK - MicroscopeSettings.MicroscopeSettingsID
+FileName string INDEX
+Time TIMESTAMP
+Date DATE
+
+
+Feature
+-
+FeatureID PK int
+ImageID int FK >- Image.ImageID
+CentreX int
+CentreY int
+Width int
+Height int
+
+
+ExperimentRun 
+-
+ExperimentRunID PK int
+ProtocolID FK >- Protocol.ProtocolID
+Time TIMESTAMP
+Date DATE
+
+
+Protocol
+-
+ProtocolID PK int
+Time TIMESTAMP
+Date DATE
+
+
+TemperatureProfile
+-
+TemperatureProfileID PK int
+TemperatureGradientID FK -< TemperatureGradient.TemperatureGradientID
+
+
+TemperatureGradient
+-
+TemperatureGradientID PK int
+TemperatureProfileID  FK -< TemperatureProfile.TemperatureProfileID
+StartTemperature int
+EndTemperature int
+DurationSeconds int
+
+
+MicroscopeSettings 
+-
+MicroscopeSettingsID PK int
+ObjectiveFocalLength int
+NumericalAperture float
+Fluid varchar
+TubeLensFocalLength int
+Lightsource varchar
+
+
+ImageSettings
+-
+ImageSettingsID PK int
+AnalogGain int
+DigitalGain int
+ExposureTimeMs int
+
+
+
